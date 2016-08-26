@@ -1,0 +1,47 @@
+#toon{
+	top: 60px;
+	left: 60px;
+	width: 30px;
+	height: 30px;
+	background-color: black;
+	position: absolute;
+}
+
+#container{
+	width: 250px;
+	height: 250px;
+	position: relative;
+	background-color: #03A9F4;
+	margin: 20px auto;
+}
+
+#char{
+	position: absolute;
+}
+ul{
+	list-style-type: none;
+}
+
+.obj {
+	position: absolute;
+}
+
+.wall {
+	width: 50px;
+	height: 50px;
+	background-color: blue;
+}
+
+.free {
+	width: 50px;
+	height: 50px;
+}
+
+#foe{
+	top: 260px;
+	left: 260px;
+	width: 30px;
+	height: 30px;
+	background-color: red;
+	position: absolute;
+}
