@@ -8,10 +8,10 @@
 }
 
 #container{
-	width: 250px;
-	height: 250px;
+	/*width: 250px;
+	height: 250px;*/
 	position: relative;
-	background-color: #03A9F4;
+	/*background-color: ;*/
 	margin: 20px auto;
 }
 
@@ -37,9 +37,7 @@ ul{
 	height: 50px;
 }
 
-#foe{
-	top: 260px;
-	left: 260px;
+.foe{
 	width: 30px;
 	height: 30px;
 	background-color: red;
