@@ -2,10 +2,8 @@ var heroDamage = 3;
 
 $(document).ready(function(){
 	populateLevel(level);
-	var yAxis=1;
-	var xAxis=1;
 	var pressed = {};
-
+	var facing = "right";
 	$(document).keydown(function(e) {
 	    if ( pressed[e.which] ) return;
 	    pressed[e.which] = e.timeStamp;
@@ -16,184 +14,223 @@ $(document).ready(function(){
 			// Key "e.which" was pressed for "duration" seconds
 			pressed = {};
 			if (e.keyCode == 83){
-				if ( duration < 750 ){
-					if (map[yAxis+1][xAxis].terrain != 1){
-						moveToon('#toon', map[yAxis+=1][xAxis], {'top' : '+=50px'}, 100);
-					} else {
-						$("#toon").animate({'top' : '+=10px'}, 50).animate({'top' : '-=10px'}, 50);
-					}
+				if (facing != "down"){
+					$("#" + playerUnit.id).css("left", 10 + (playerUnit.x * 50) + "px");
+					$("#" + playerUnit.id).css("top", 20 + (playerUnit.y * 50) + "px");
+					$("#" + playerUnit.id).css("width", "30px");
+					$("#" + playerUnit.id).css("height", "20px");
+					facing = "down";
 				} else {
-					if (typeof map[yAxis+2] === "undefined" || map[yAxis+1][xAxis].terrain == 1 && map[yAxis+2][xAxis].terrain == 1){
-						$("#toon").animate({'top' : '+=10px'}, 50).animate({'top' : '-=10px'}, 50);
-					} else if (map[yAxis+2][xAxis].terrain != 1){
-						moveToon('#toon', map[yAxis+=2][xAxis], {'top' : '+=100px'}, 100);
-					} else if (map[yAxis+2][xAxis].terrain == 1){
-						moveToon('#toon', map[yAxis+=1][xAxis], {'top' : '+=60px'}, 50)
-						$("#toon").animate({'top' : '-=10px'}, 50);
+					if ( duration < 750 ){
+						if (map[playerUnit.y+1][playerUnit.x].terrain != 1){
+							moveToon('#toon', map[playerUnit.y+=1][playerUnit.x], {'top' : '+=50px'}, 100);
+						} else {
+							$("#toon").animate({'top' : '+=10px'}, 50).animate({'top' : '-=10px'}, 50);
+						}
+					} else {
+						if (typeof map[playerUnit.y+2] === "undefined" || map[playerUnit.y+1][playerUnit.x].terrain == 1 && map[playerUnit.y+2][playerUnit.x].terrain == 1){
+							$("#toon").animate({'top' : '+=10px'}, 50).animate({'top' : '-=10px'}, 50);
+						} else if (map[playerUnit.y+2][playerUnit.x].terrain != 1){
+							moveToon('#toon', map[playerUnit.y+=2][playerUnit.x], {'top' : '+=100px'}, 100);
+						} else if (map[playerUnit.y+2][playerUnit.x].terrain == 1){
+							moveToon('#toon', map[playerUnit.y+=1][playerUnit.x], {'top' : '+=60px'}, 50);
+							$("#toon").animate({'top' : '-=10px'}, 50);
+						}
 					}
 				}
 			} else if (e.keyCode == 87){
-				if ( duration < 750 ){
-					if (map[yAxis-1][xAxis].terrain != 1){
-						moveToon("#toon", map[yAxis-=1][xAxis], {'top' : '-=50px'}, 100);
-					} else {
-						$("#toon").animate({'top' : '-=10px'}, 50).animate({'top' : '+=10px'}, 50);
-					}
+				if (facing != "up"){
+					$("#" + playerUnit.id).css("left", 10 + (playerUnit.x * 50) + "px");
+					$("#" + playerUnit.id).css("top", 10 + (playerUnit.y * 50) + "px");
+					$("#" + playerUnit.id).css("width", "30px");
+					$("#" + playerUnit.id).css("height", "20px");
+					facing = "up";
 				} else {
-					if (typeof map[yAxis-2] === "undefined" || map[yAxis-1][xAxis].terrain == 1 &&  map[yAxis-2][xAxis].terrain == 1){
-						$("#toon").animate({'top' : '-=10px'}, 50).animate({'top' : '+=10px'}, 50);
-					} else if (map[yAxis-2][xAxis].terrain != 1){
-						moveToon('#toon', map[yAxis-=2][xAxis], {'top' : '-=100px'}, 100);
-					} else if (map[yAxis-2][xAxis].terrain == 1){
-						moveToon('#toon', map[yAxis-=1][xAxis], {'top' : '-=60px'}, 50);
-						$("#toon").animate({'top' : '+=10px'}, 50);
+					if ( duration < 750 ){
+						if (map[playerUnit.y-1][playerUnit.x].terrain != 1){
+							moveToon("#toon", map[playerUnit.y-=1][playerUnit.x], {'top' : '-=50px'}, 100);
+						} else {
+							$("#toon").animate({'top' : '-=10px'}, 50).animate({'top' : '+=10px'}, 50);
+						}
+					} else {
+						if (typeof map[playerUnit.y-2] === "undefined" || map[playerUnit.y-1][playerUnit.x].terrain == 1 &&  map[playerUnit.y-2][playerUnit.x].terrain == 1){
+							$("#toon").animate({'top' : '-=10px'}, 50).animate({'top' : '+=10px'}, 50);
+						} else if (map[playerUnit.y-2][playerUnit.x].terrain != 1){
+							moveToon('#toon', map[playerUnit.y-=2][playerUnit.x], {'top' : '-=100px'}, 100);
+						} else if (map[playerUnit.y-2][playerUnit.x].terrain == 1){
+							moveToon('#toon', map[playerUnit.y-=1][playerUnit.x], {'top' : '-=60px'}, 50);
+							$("#toon").animate({'top' : '+=10px'}, 50);
+						}
 					}
 				}
 			} else if (e.keyCode == 65){
-				if ( duration < 750 ){
-					if (map[yAxis][xAxis-1].terrain != 1){
-						moveToon("#toon", map[yAxis][xAxis-=1], {'left' : '-=50px'}, 100);
-					} else {
-						$("#toon").animate({'left' : '-=10px'}, 50).animate({'left' : '+=10px'}, 50);
-					}
+				if (facing != "left"){
+					$("#" + playerUnit.id).css("left", 10 + (playerUnit.x * 50) + "px");
+					$("#" + playerUnit.id).css("top", 10 + (playerUnit.y * 50) + "px");
+					$("#" + playerUnit.id).css("width", "20px");
+					$("#" + playerUnit.id).css("height", "30px");
+					facing = "left";
 				} else {
-					if (typeof map[yAxis][xAxis-2] === "undefined" || map[yAxis][xAxis-1].terrain == 1 && map[yAxis][xAxis-2].terrain == 1){
-						$("#toon").animate({'left' : '-=10px'}, 50).animate({'left' : '+=10px'}, 50);
-					} else if (map[yAxis][xAxis-2].terrain != 1){
-						moveToon('#toon', map[yAxis][xAxis-=2], {'left' : '-=100px'}, 100);
-					} else if (map[yAxis][xAxis-2].terrain == 1){
-						moveToon('#toon', map[yAxis][xAxis-=1], {'left' : '-=60px'}, 50)
-						$("#toon").animate({'left' : '+=10px'}, 50);
+					if ( duration < 750 ){
+						if (map[playerUnit.y][playerUnit.x-1].terrain != 1){
+							moveToon("#toon", map[playerUnit.y][playerUnit.x-=1], {'left' : '-=50px'}, 100);
+						} else {
+							$("#toon").animate({'left' : '-=10px'}, 50).animate({'left' : '+=10px'}, 50);
+						}
+					} else {
+						if (typeof map[playerUnit.y][playerUnit.x-2] === "undefined" || map[playerUnit.y][playerUnit.x-1].terrain == 1 && map[playerUnit.y][playerUnit.x-2].terrain == 1){
+							$("#toon").animate({'left' : '-=10px'}, 50).animate({'left' : '+=10px'}, 50);
+						} else if (map[playerUnit.y][playerUnit.x-2].terrain != 1){
+							moveToon('#toon', map[playerUnit.y][playerUnit.x-=2], {'left' : '-=100px'}, 100);
+						} else if (map[playerUnit.y][playerUnit.x-2].terrain == 1){
+							moveToon('#toon', map[playerUnit.y][playerUnit.x-=1], {'left' : '-=60px'}, 50);
+							$("#toon").animate({'left' : '+=10px'}, 50);
+						}
 					}
 				}
 			} else if (e.keyCode == 68){
-				if ( duration < 750 ){
-					if (map[yAxis][xAxis+1].terrain != 1){
-						moveToon("#toon", map[yAxis][xAxis+=1], {'left' : '+=50px'}, 100);
-					} else {
-						$("#toon").animate({'left' : '+=10px'}, 50).animate({'left' : '-=10px'}, 50);
-					}
+				if (facing != "right"){
+					$("#" + playerUnit.id).css("left", 20 + (playerUnit.x * 50) + "px");
+					$("#" + playerUnit.id).css("top", 10 + (playerUnit.y * 50) + "px");
+					$("#" + playerUnit.id).css("width", "20px");
+					$("#" + playerUnit.id).css("height", "30px");
+					facing = "right";
 				} else {
-					if (typeof map[yAxis][xAxis+2] === "undefined" || map[yAxis][xAxis+1].terrain == 1 && map[yAxis][xAxis+2].terrain == 1){
-						$("#toon").animate({'left' : '+=10px'}, 50).animate({'left' : '-=10px'}, 50);
-					} else if (map[yAxis][xAxis+2].terrain != 1){
-						moveToon('#toon', map[yAxis][xAxis+=2], {'left' : '+=100px'}, 100);
-					} else if (map[yAxis][xAxis+2].terrain == 1){
-						moveToon('#toon', map[yAxis][xAxis+=1], {'left' : '+=60px'}, 50)
-						$("#toon").animate({'left' : '-=10px'}, 50);
+					if ( duration < 750 ){
+						if (map[playerUnit.y][playerUnit.x+1].terrain != 1){
+							moveToon("#toon", map[playerUnit.y][playerUnit.x+=1], {'left' : '+=50px'}, 100);
+						} else {
+							$("#toon").animate({'left' : '+=10px'}, 50).animate({'left' : '-=10px'}, 50);
+						}
+					} else {
+						if (typeof map[playerUnit.y][playerUnit.x+2] === "undefined" || map[playerUnit.y][playerUnit.x+1].terrain == 1 && map[playerUnit.y][playerUnit.x+2].terrain == 1){
+							$("#toon").animate({'left' : '+=10px'}, 50).animate({'left' : '-=10px'}, 50);
+						} else if (map[playerUnit.y][playerUnit.x+2].terrain != 1){
+							moveToon('#toon', map[playerUnit.y][playerUnit.x+=2], {'left' : '+=100px'}, 100);
+						} else if (map[playerUnit.y][playerUnit.x+2].terrain == 1){
+							moveToon('#toon', map[playerUnit.y][playerUnit.x+=1], {'left' : '+=60px'}, 50);
+							$("#toon").animate({'left' : '-=10px'}, 50);
+						}
 					}
 				}
-			}
+			};
+			if (e.keyCode == 32){
+				if (facing == "right" && enemyIsThere(map[playerUnit.y][playerUnit.x+1]) == true){
+					console.log("hit!!!");
+				} else if (facing == "left" && enemyIsThere(map[playerUnit.y][playerUnit.x-1]) == true){
+					console.log("hit!!!");
+				} else if (facing == "up" && enemyIsThere(map[playerUnit.y-1][playerUnit.x]) == true){
+					console.log("hit!!!");
+				} else if (facing == "down" && enemyIsThere(map[playerUnit.y+1][playerUnit.x]) == true){
+					console.log("hit!!!");
+				}
+			};
 	});
 
-	function moveUpDown(){
-		for(i=0; i < foesUpDown.length; i++){
-			if (foesUpDown[i].direction == "negative"){
-				if (map[foesUpDown[i].y-1][foesUpDown[i].x].terrain != 1){
-					moveToon('#' + foesUpDown[i].id, map[foesUpDown[i].y-=1][foesUpDown[i].x], {'top' : '-=50px'}, 190);
-				} else if (map[foesUpDown[i].y-1][foesUpDown[i].x].terrain == 1){
-					foesUpDown[i].direction = "positive";
-					moveToon('#' + foesUpDown[i].id, map[foesUpDown[i].y+=1][foesUpDown[i].x], {'top' : '+=50px'}, 190);
-				}
-			} else {
-				if (map[foesUpDown[i].y+1][foesUpDown[i].x].terrain != 1){
-					moveToon('#' + foesUpDown[i].id, map[foesUpDown[i].y+=1][foesUpDown[i].x], {'top' : '+=50px'}, 190);
-				} else if (map[foesUpDown[i].y+1][foesUpDown[i].x].terrain == 1){
-					foesUpDown[i].direction = "negative";
-					moveToon('#' + foesUpDown[i].id, map[foesUpDown[i].y-=1][foesUpDown[i].x], {'top' : '-=50px'}, 190);
+	function moveFoe(){
+		for(j=0; j < foes.length; j++){
+			if (foes[j].movement == "upDown"){
+					if (foes[j].direction == "negative"){
+						if (map[foes[j].y-1][foes[j].x].terrain != 1){
+							moveToon('#' + foes[j].id, map[foes[j].y-=1][foes[j].x], {'top' : '-=50px'}, 240);
+						} else if (map[foes[j].y-1][foes[j].x].terrain == 1){
+							foes[j].direction = "positive";
+							moveToon('#' + foes[j].id, map[foes[j].y+=1][foes[j].x], {'top' : '+=50px'}, 240);
+						}
+					} else {
+						if (map[foes[j].y+1][foes[j].x].terrain != 1){
+							moveToon('#' + foes[j].id, map[foes[j].y+=1][foes[j].x], {'top' : '+=50px'}, 240);
+						} else if (map[foes[j].y+1][foes[j].x].terrain == 1){
+							foes[j].direction = "negative";
+							moveToon('#' + foes[j].id, map[foes[j].y-=1][foes[j].x], {'top' : '-=50px'}, 240);
+						}
+					}
+				} else {
+				if (foes[j].direction == "negative"){
+					if (map[foes[j].y][foes[j].x-1].terrain != 1){
+						moveToon('#' + foes[j].id, map[foes[j].y][foes[j].x-=1], {'left' : '-=50px'}, 240);
+					} else if (map[foes[j].y][foes[j].x-1].terrain == 1){
+						foes[j].direction = "positive";
+						moveToon('#' + foes[j].id, map[foes[j].y][foes[j].x+=1], {'left' : '+=50px'}, 240);
+					}
+				} else {
+					if (map[foes[j].y][foes[j].x+1].terrain != 1){
+						moveToon('#' + foes[j].id, map[foes[j].y][foes[j].x+=1], {'left' : '+=50px'}, 240);
+					} else if (map[foes[j].y][foes[j].x+1].terrain == 1){
+						foes[j].direction = "negative";
+						moveToon('#' + foes[j].id, map[foes[j].y][foes[j].x-=1], {'left' : '-=50px'}, 240);
+					}
 				}
 			}
 		}
 	};
-	function moveLeftRight(){
-		for(j=0; j < foesLeftRight.length; j++){
-			if (foesLeftRight[j].direction == "negative"){
-				if (map[foesLeftRight[j].y][foesLeftRight[j].x-1].terrain != 1){
-					moveToon('#' + foesLeftRight[j].id, map[foesLeftRight[j].y][foesLeftRight[j].x-=1], {'left' : '-=50px'}, 190);
-				} else if (map[foesLeftRight[j].y][foesLeftRight[j].x-1].terrain == 1){
-					foesLeftRight[j].direction = "positive";
-					moveToon('#' + foesLeftRight[j].id, map[foesLeftRight[j].y][foesLeftRight[j].x+=1], {'left' : '+=50px'}, 190);
-				}
-			} else {
-				if (map[foesLeftRight[j].y][foesLeftRight[j].x+1].terrain != 1){
-					moveToon('#' + foesLeftRight[j].id, map[foesLeftRight[j].y][foesLeftRight[j].x+=1], {'left' : '+=50px'}, 190);
-				} else if (map[foesLeftRight[j].y][foesLeftRight[j].x+1].terrain == 1){
-					foesLeftRight[j].direction = "negative";
-					moveToon('#' + foesLeftRight[j].id, map[foesLeftRight[j].y][foesLeftRight[j].x-=1], {'left' : '-=50px'}, 190);
-				}
-			}
-		}
-	};
-	setInterval(moveLeftRight, 200);
-	setInterval(moveUpDown, 200);
+	setInterval(moveFoe, 250);
 });
 
 /////////////////////////
 /// MOVEMENT & DAMAGE ///
 /////////////////////////
-
 var heroPosition;
-var foePosition=[];
+var foePosition = [];
 var damaged = false;
 function moveToon(selector, position, change, speed){
-	$(selector).animate(change , speed);
+	$(selector).animate(change, speed);
 	if (selector == "#toon"){
 		heroPosition = position;
 	} else if (selector.substring(0,4) == "#foe"){
-			if (enemyExists(selector) == false){
+			if (heroPosition.y === position.y && heroPosition.x === position.x + 50 || heroPosition.y === position.y && heroPosition.x === position.x-50 ||
+			heroPosition.y === position.y + 50 &&  heroPosition.x === position.x  || heroPosition.y === position.y-50 && heroPosition.x === position.x ||
+			heroPosition.y === position.y && heroPosition.x === position.x){
 				foePosition.push({
 					unitDesignation: selector,
 					unitPosition: position
 				});
-			} else {
-				for (i = 0; i < foePosition.length; i++){
-					if (foePosition[i].unitDesignation == selector){
-						foePosition[i].unitPosition = position;
-					}
-				}
-			};
+			}
 	};
 	if (enemyIsThere(heroPosition) == true && damaged == false){
-		console.log(damaged);
+		console.log("hit");
 		damaged = true;
 		heroDamage--;
 		if (heroDamage == 0){
 			heroDamage=3;
 		}
-	}else{
+	} else {
 		damaged = false;
 	}
-}
+	foePosition=[];
+};
 
-function enemyExists(enemyID) {
-  return foePosition.some(function(el) {
-    return el.unitDesignation === enemyID;
-  });
-}
 function enemyIsThere(heroPosition) {
   return foePosition.some(function(el) {
     return el.unitPosition === heroPosition;
   });
 }
+
 ///////////////////
 /// MAP BUILDER ///
 ///////////////////
 
-var level = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-			 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			 [1, 2, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 2, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-			 [1, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			 [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-			 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			 [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-			 [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 1],
-			 [1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-			 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			 [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]];
+var level = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+	     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+	     [1, 2, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1],
+	     [1, 0, 0, 0, 1, 3, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+	     [1, 0, 1, 0, 1, 1, 1, 2, 1, 2, 1, 1, 1, 0, 1, 0, 1],
+	     [1, 0, 1, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 3, 1, 0, 1],
+	     [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+	     [1, 0, 0, 0, 1, 3, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+	     [1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1],
+	     [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0, 0, 3, 1],
+	     [1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1],
+	     [1, 0, 0, 0, 1, 3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
+	     [1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1],
+	     [1, 0, 1, 2, 0, 2, 0, 2, 1, 0, 0, 2, 0, 0, 1, 3, 1],
+	     [1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1],
+	     [1, 4, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 2, 1],
+	     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]];
 
 var map = [];
-var foesUpDown = [];
-var foesLeftRight = [];
+var foes= [];
+var playerUnit;
 function populateLevel(lvl) {
 	var count = 0;
 	for (var y=0; y<lvl.length; y++) {
@@ -203,17 +240,20 @@ function populateLevel(lvl) {
 				var wall = new terrainObj(x * 50, y * 50, "wall", count, lvl[y][x]);
 				row.push(wall);
 				count++;
-			} else if (lvl[y][x]==0 || lvl[y][x]==2 || lvl[y][x]==3){
+			} else if (lvl[y][x]!=1){
 				var free = new terrainObj(x * 50, y * 50, "free", count, lvl[y][x]);
 				row.push(free);
 				count++;
 			}
 			if(lvl[y][x]==2){
-				var enemyUnit = new nPCObj(x, y, "foe", count);
-				foesUpDown.push(enemyUnit);
+				var enemyUnit = new nPCObj(x, y, "foe", count, "upDown");
+				foes.push(enemyUnit);
 			}else if(lvl[y][x]==3){
-				var enemyUnit = new nPCObj(x, y, "foe", count);
-				foesLeftRight.push(enemyUnit);
+				var enemyUnit = new nPCObj(x, y, "foe", count, "leftRight");
+				foes.push(enemyUnit);
+			}else if(lvl[y][x]==4){
+				playerUnit = new playerObj(x, y, "toon");
+				heroPosition = playerUnit;
 			}
 		}
 		map.push(row);
@@ -231,12 +271,22 @@ function terrainObj(x, y, id, count, terrain) {
 	this.terrain = terrain;
 }
 
-function nPCObj(x, y, id, count) {
+function nPCObj(x, y, id, count, movement) {
 	$("#container").append("<div id='" + id + count + "' class='foe'></div>");
 	$("#" + id + count).css("top", 10 + (y * 50) + "px");
 	$("#" + id + count).css("left", 10 + (x * 50) + "px");
 	this.id = id + count;
 	this.x = x;
 	this.y = y;
+	this.movement = movement;
 	this.direction = "positive";
+}
+
+function playerObj(x, y, id) {
+	$("#container").append("<div id='" + id + "' class='" + id + "'></div>");
+	$("#" + id).css("top", 10 + (y * 50) + "px");
+	$("#" + id).css("left", 20 + (x * 50) + "px");
+	this.id = id;
+	this.x = x;
+	this.y = y;
 }
